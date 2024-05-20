@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 // 1. we connect singlyLinkedList Nodes with previous Node
 // 2. we display linked Nodes in console
 // 3. we will find the length of linkedList nodes
@@ -11,6 +13,7 @@
 // 11. reverse singly linked list
 // 12. find last nth node from singly linked list
 // 13. remove duplicate node from sorted linked list
+// 14. delete multiple element from singly linked list
 public class singlyLinkedList {
     private ListNode head;
 
@@ -205,6 +208,18 @@ public class singlyLinkedList {
         }
     }
 
+
+    // 14. delete multiple elements by their position from singly linked list
+    public void deleteMultiplePositions(int[] positions) {
+        // Sort the positions array in descending order
+        Arrays.sort(positions);
+
+        // Iterate from the end of the positions array
+        for (int i = positions.length - 1; i >= 0; i--) {
+            deleteAny(positions[i]);
+        }
+    }
+
     public static void main(String[] args) {
         singlyLinkedList sll = new singlyLinkedList();
         sll.head = new ListNode(10);
@@ -282,5 +297,22 @@ public class singlyLinkedList {
         } else {
             System.out.println("The linked list is shorter than " + n + " nodes.");
         }
+
+
+        // remove duplicate elements from sorted singly linked list
+        // current linked list : 40-->8-->1-->50-->10-->null
+        int[] positions = {1,2,3,4,5};
+        sll.deleteMultiplePositions(positions);
+        sll.display(); // here linked list is empty null
+        System.out.println("Remove duplicate element from sorted linked list");
+        sll.insertFirst(1);
+        sll.insertFirst(1);
+        sll.insertFirst(2);
+        sll.insertFirst(2);
+        sll.insertFirst(3);
+        sll.insertFirst(3);
+        sll.insertFirst(4);
+        sll.removeDuplicate();
+        sll.display();
     }
 }
