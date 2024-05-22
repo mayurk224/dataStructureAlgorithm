@@ -16,6 +16,8 @@ import java.util.Comparator;
 // 13. remove duplicate node from sorted linked list
 // 14. delete multiple element from singly linked list
 // 15. add multiple element in singly linked list
+// 16. insert node in sorted singly linked list
+// 17. function to sort singly linked listed Nodes
 public class singlyLinkedList {
     private ListNode head;
 
@@ -251,6 +253,78 @@ public class singlyLinkedList {
         }
     }
 
+
+    // 16. insert node in sorted singly linked list
+    public ListNode insertInSort(int value){
+        ListNode newNode = new ListNode(value);
+        if(head == null){
+            return newNode;
+        }
+        ListNode current = head;
+        ListNode temp = null;
+        while(current != null && current.data < newNode.data){
+            temp = current;
+            current = current.next;
+        }
+        newNode.next = current;
+        temp.next = newNode;
+        return head;
+    }
+
+
+    // 17. function to sort singly linked listed Nodes
+    // Method to sort the linked list
+    public void sort() {
+        head = mergeSort(head);
+    }
+
+    private ListNode mergeSort(ListNode head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+
+        ListNode middle = getMiddle(head);
+        ListNode nextOfMiddle = middle.next;
+        middle.next = null;
+
+        ListNode left = mergeSort(head);
+        ListNode right = mergeSort(nextOfMiddle);
+
+        return sortedMerge(left, right);
+    }
+
+    private ListNode sortedMerge(ListNode a, ListNode b) {
+        if (a == null) {
+            return b;
+        }
+        if (b == null) {
+            return a;
+        }
+
+        ListNode result;
+        if (a.data <= b.data) {
+            result = a;
+            result.next = sortedMerge(a.next, b);
+        } else {
+            result = b;
+            result.next = sortedMerge(a, b.next);
+        }
+        return result;
+    }
+
+    private ListNode getMiddle(ListNode head) {
+        if (head == null) {
+            return head;
+        }
+
+        ListNode slow = head, fast = head;
+        while (fast.next != null && fast.next.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return slow;
+    }
+
     public static void main(String[] args) {
         singlyLinkedList sll = new singlyLinkedList();
         sll.head = new ListNode(10);
@@ -355,6 +429,13 @@ public class singlyLinkedList {
 
         // Display the linked list after insertion
         System.out.println("List after inserting values at positions " + Arrays.toString(positions) + ":");
+        sll.display();
+
+
+        // 16. insert node in sorted singly linked list
+        sll.sort();
+        sll.insertAny(9,8);
+        sll.insertInSort(8);
         sll.display();
     }
 }
