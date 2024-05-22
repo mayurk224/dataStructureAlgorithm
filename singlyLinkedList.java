@@ -18,6 +18,7 @@ import java.util.Comparator;
 // 15. add multiple element in singly linked list
 // 16. insert node in sorted singly linked list
 // 17. function to sort singly linked listed Nodes
+// 18. remove given key(node value) from singly linked list
 public class singlyLinkedList {
     private ListNode head;
 
@@ -325,6 +326,19 @@ public class singlyLinkedList {
         return slow;
     }
 
+
+    // 18. remove given key(node value) from singly linked list
+    public void removeByKey(int value){
+        ListNode current = head;
+        ListNode temp = null;
+        while(current != null && current.data != value){
+            temp = current;
+            current = current.next;
+        }
+        if(current==null) return;
+        temp.next = current.next;
+    }
+
     public static void main(String[] args) {
         singlyLinkedList sll = new singlyLinkedList();
         sll.head = new ListNode(10);
@@ -432,10 +446,17 @@ public class singlyLinkedList {
         sll.display();
 
 
-        // 16. insert node in sorted singly linked list
+
+        // 17. function to sort singly linked listed Nodes
         sll.sort();
         sll.insertAny(9,8);
+        // 16. insert node in sorted singly linked list
         sll.insertInSort(8);
+        sll.display();
+
+
+        // 18. remove given key(node value) from singly linked list
+        sll.removeByKey(8);
         sll.display();
     }
 }
