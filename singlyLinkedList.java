@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.Comparator;
 
 // 1. we connect singlyLinkedList Nodes with previous Node
 // 2. we display linked Nodes in console
@@ -14,6 +15,7 @@ import java.util.Arrays;
 // 12. find last nth node from singly linked list
 // 13. remove duplicate node from sorted linked list
 // 14. delete multiple element from singly linked list
+// 15. add multiple element in singly linked list
 public class singlyLinkedList {
     private ListNode head;
 
@@ -220,6 +222,35 @@ public class singlyLinkedList {
         }
     }
 
+
+    // 15. add multiple element in singly linked list
+    public void insertMultiplePositions(int[] values, int[] positions) {
+        if (values.length != positions.length) {
+            throw new IllegalArgumentException("Values and positions arrays must have the same length");
+        }
+
+        // Find the length of the linked list
+        int listLength = length();
+
+        // Check if any position is greater than the length of the linked list
+        for (int position : positions) {
+            if (position > listLength + 1) {
+                throw new IllegalArgumentException("Position " + position + " is greater than the length of the linked list");
+            }
+        }
+
+        // Sort the positions array and values array together in ascending order
+        Integer[] indices = new Integer[values.length];
+        for (int i = 0; i < values.length; i++) {
+            indices[i] = i;
+        }
+        Arrays.sort(indices, Comparator.comparingInt(i -> positions[i]));
+
+        for (int i : indices) {
+            insertAny(values[i], positions[i]);
+        }
+    }
+
     public static void main(String[] args) {
         singlyLinkedList sll = new singlyLinkedList();
         sll.head = new ListNode(10);
@@ -305,14 +336,25 @@ public class singlyLinkedList {
         sll.deleteMultiplePositions(positions);
         sll.display(); // here linked list is empty null
         System.out.println("Remove duplicate element from sorted linked list");
-        sll.insertFirst(1);
-        sll.insertFirst(1);
-        sll.insertFirst(2);
-        sll.insertFirst(2);
-        sll.insertFirst(3);
-        sll.insertFirst(3);
-        sll.insertFirst(4);
+        sll.insertLast(1);
+        sll.insertLast(1);
+        sll.insertLast(2);
+        sll.insertLast(2);
+        sll.insertLast(3);
+        sll.insertLast(3);
+        sll.insertLast(4);
         sll.removeDuplicate();
+        sll.display();
+
+
+        // 15. add multiple element in singly linked list
+        // Insert multiple nodes at specified positions
+        int[] values = {5, 6, 7};
+        int[] pos = {2, 5, 1};  // Example positions to insert values
+        sll.insertMultiplePositions(values, pos);
+
+        // Display the linked list after insertion
+        System.out.println("List after inserting values at positions " + Arrays.toString(positions) + ":");
         sll.display();
     }
 }
