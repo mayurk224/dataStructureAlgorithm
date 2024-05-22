@@ -19,6 +19,8 @@ import java.util.Comparator;
 // 16. insert node in sorted singly linked list
 // 17. function to sort singly linked listed Nodes
 // 18. remove given key(node value) from singly linked list
+// 19. detect loop in a linked list
+// 20. delete all node in linked list
 public class singlyLinkedList {
     private ListNode head;
 
@@ -339,6 +341,45 @@ public class singlyLinkedList {
         temp.next = current.next;
     }
 
+
+    // 19. detect loop in a linked list
+    public boolean detectLoop(){
+        ListNode fastPtr = head;
+        ListNode slowPtr = head;
+        while(fastPtr!=null && fastPtr.next !=null){
+            fastPtr = fastPtr.next.next;
+            slowPtr = slowPtr.next;
+            if(slowPtr == fastPtr){
+                return true;
+            }
+        }
+        return false;
+    }
+    public void createLoopInLinkedList(){
+        ListNode first = new ListNode(1);
+        ListNode second = new ListNode(2);
+        ListNode third = new ListNode(3);
+        ListNode fourth = new ListNode(4);
+        ListNode fifth = new ListNode(5);
+        ListNode sixth = new ListNode(6);
+        head = first;
+        first.next = second;
+        second.next = third;
+        third.next = fourth;
+        fourth.next = fifth;
+        fifth.next = sixth;
+        sixth.next = third;
+    }
+
+
+    // 20. delete all node in linked list
+    // Method to delete all nodes in the linked list
+    public void deleteAll() {
+        head = null;
+        // No need to explicitly set each node to null, because Java's garbage collector
+        // will clean up the nodes once they are no longer referenced.
+    }
+
     public static void main(String[] args) {
         singlyLinkedList sll = new singlyLinkedList();
         sll.head = new ListNode(10);
@@ -458,5 +499,12 @@ public class singlyLinkedList {
         // 18. remove given key(node value) from singly linked list
         sll.removeByKey(8);
         sll.display();
+
+
+        // 20. delete all node in linked list
+        sll.deleteAll();
+        // 19. detect loop in a linked list
+        sll.createLoopInLinkedList();
+        System.out.println(sll.detectLoop());
     }
 }
