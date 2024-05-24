@@ -21,6 +21,7 @@ import java.util.Comparator;
 // 18. remove given key(node value) from singly linked list
 // 19. detect loop in a linked list
 // 20. delete all node in linked list
+// 21. detect the starting point of loop in singly linked list
 public class singlyLinkedList {
     private ListNode head;
 
@@ -380,6 +381,29 @@ public class singlyLinkedList {
         // will clean up the nodes once they are no longer referenced.
     }
 
+
+    // 21. detect the starting point of loop in singly linked list
+    public ListNode startInLoop(){
+        ListNode fastPtr = head;
+        ListNode slowPtr = head;
+        while(fastPtr!=null && fastPtr.next !=null){
+            fastPtr = fastPtr.next.next;
+            slowPtr = slowPtr.next;
+            if(slowPtr == fastPtr){
+                return getStartingNode(slowPtr);
+            }
+        }
+        return null;
+    }
+    private ListNode getStartingNode(ListNode slowPtr){
+        ListNode temp = head;
+        while (temp!=slowPtr){
+            temp = temp.next;
+            slowPtr = slowPtr.next;
+        }
+        return temp;
+    }
+
     public static void main(String[] args) {
         singlyLinkedList sll = new singlyLinkedList();
         sll.head = new ListNode(10);
@@ -506,5 +530,9 @@ public class singlyLinkedList {
         // 19. detect loop in a linked list
         sll.createLoopInLinkedList();
         System.out.println(sll.detectLoop());
+
+
+        // 21. detect the starting point of loop in singly linked list
+        System.out.println(sll.startInLoop().data);
     }
 }
