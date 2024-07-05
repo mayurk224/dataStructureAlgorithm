@@ -23,6 +23,7 @@ import java.util.Comparator;
 // 20. delete all node in linked list
 // 21. detect the starting point of loop in singly linked list
 // 22. remove loop from singly linked list
+// 23. merge two sorted singly linked list
 public class singlyLinkedList {
     private ListNode head;
 
@@ -428,6 +429,31 @@ public class singlyLinkedList {
         slowPtr.next = null;
     }
 
+
+    // 23. merge two sorted singly linked list
+    public static ListNode merge(ListNode a, ListNode b){
+        ListNode dummy = new ListNode(0);
+        ListNode tail = dummy;
+        while(a !=null && b != null){
+             if(a.data <= b.data){
+                 tail.next = a;
+                 a = a.next;
+             }
+             else{
+                 tail.next = b;
+                 b = b.next;
+             }
+             tail = tail.next;
+             if(a == null){
+                 tail.next = b;
+             }
+             else {
+                 tail.next = a;
+             }
+        }
+        return dummy.next;
+    }
+
     public static void main(String[] args) {
         singlyLinkedList sll = new singlyLinkedList();
         sll.head = new ListNode(10);
@@ -569,5 +595,24 @@ public class singlyLinkedList {
         sll.removeLoop();
         sll.display();
 
+        // 23. merge two singly linked list in sorted
+        singlyLinkedList sll2 = new singlyLinkedList();
+        sll2.insertLast(1);
+        sll2.insertLast(3);
+        sll2.insertLast(5);
+
+        singlyLinkedList sll3 = new singlyLinkedList();
+        sll3.insertLast(2);
+        sll3.insertLast(4);
+        sll3.insertLast(6);
+        sll3.insertLast(8);
+        sll3.insertLast(10);
+
+        sll2.display();
+        sll3.display();
+
+        singlyLinkedList result = new singlyLinkedList();
+        result.head = merge(sll2.head, sll3.head);
+        result.display();
     }
 }
