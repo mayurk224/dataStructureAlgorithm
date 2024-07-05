@@ -22,6 +22,7 @@ import java.util.Comparator;
 // 19. detect loop in a linked list
 // 20. delete all node in linked list
 // 21. detect the starting point of loop in singly linked list
+// 22. remove loop from singly linked list
 public class singlyLinkedList {
     private ListNode head;
 
@@ -248,7 +249,7 @@ public class singlyLinkedList {
         // Sort the positions array and values array together in ascending order
         Integer[] indices = new Integer[values.length];
         for (int i = 0; i < values.length; i++) {
-            indices[i] = i;
+            indices[i] = (Integer) i;
         }
         Arrays.sort(indices, Comparator.comparingInt(i -> positions[i]));
 
@@ -404,6 +405,29 @@ public class singlyLinkedList {
         return temp;
     }
 
+    // 22. remove loop from singly linked list
+    public void removeLoop(){
+        ListNode fastPtr = head;
+        ListNode slowPtr = head;
+
+        while(fastPtr != null && fastPtr.next != null){
+            fastPtr = fastPtr.next.next;
+            slowPtr = slowPtr.next;
+            if(fastPtr == slowPtr){
+                removeLoop(slowPtr);
+                return;
+            }
+        }
+    }
+    public void removeLoop(ListNode slowPtr){
+        ListNode temp = head;
+        while(temp.next != slowPtr.next){
+            temp = temp.next;
+            slowPtr = slowPtr.next;
+        }
+        slowPtr.next = null;
+    }
+
     public static void main(String[] args) {
         singlyLinkedList sll = new singlyLinkedList();
         sll.head = new ListNode(10);
@@ -534,5 +558,16 @@ public class singlyLinkedList {
 
         // 21. detect the starting point of loop in singly linked list
         System.out.println(sll.startInLoop().data);
+
+
+
+        // why Floyd's cycle detection algorithm works
+        // distance travelled by fast pointer
+
+
+        // 22. remove loop from singly linked list
+        sll.removeLoop();
+        sll.display();
+
     }
 }
