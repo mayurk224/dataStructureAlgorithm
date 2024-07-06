@@ -1,3 +1,5 @@
+// 1. how to insert node at the beginning of a doubly linked list
+
 public class DoublyLinkedList {
 
     private ListNode head;
@@ -63,6 +65,19 @@ public class DoublyLinkedList {
         System.out.println("null");
     }
 
+    // 1. how to insert node at the beginning of a doubly linked list
+    public void insertFirst(int value){
+        ListNode newNode = new ListNode(value);
+        if(isEmpty()){
+            tail = newNode;
+        }else{
+            head.previous = newNode;
+        }
+        newNode.next = head;
+        head = newNode;
+        length++;
+    }
+
     public static void main(String[] args) {
         DoublyLinkedList dll = new DoublyLinkedList();
         dll.insertLast(1);
@@ -72,5 +87,13 @@ public class DoublyLinkedList {
 
         dll.displayForward();
         dll.displayBackward();
+
+
+        // 1. how to insert node at the beginning of a doubly linked list
+        DoublyLinkedList dll1 = new DoublyLinkedList();
+        dll1.insertFirst(1);
+        dll1.insertFirst(10);
+        dll1.displayForward();
+        dll1.displayBackward();
     }
 }
