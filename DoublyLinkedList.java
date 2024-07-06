@@ -1,4 +1,5 @@
 // 1. how to insert node at the beginning of a doubly linked list
+// 2. how to insert nod at the end of a doubly linked list
 
 public class DoublyLinkedList {
 
@@ -78,6 +79,20 @@ public class DoublyLinkedList {
         length++;
     }
 
+
+    // 2. how to insert nod at the end of a doubly linked list
+    public void insertLast2(int value){
+        ListNode newNode= new ListNode(value);
+        if(isEmpty()){
+            head = newNode;
+        }else{
+            tail.next = newNode;
+            newNode.previous = tail;
+        }
+        tail = newNode;
+        length++;
+    }
+
     public static void main(String[] args) {
         DoublyLinkedList dll = new DoublyLinkedList();
         dll.insertLast(1);
@@ -95,5 +110,12 @@ public class DoublyLinkedList {
         dll1.insertFirst(10);
         dll1.displayForward();
         dll1.displayBackward();
+
+        // 2. how to insert nod at the end of a doubly linked list
+        DoublyLinkedList dll2 = new DoublyLinkedList();
+        dll2.insertLast2(7);
+        dll2.insertLast2(6);
+        dll2.displayForward();
+        dll2.displayBackward();
     }
 }
