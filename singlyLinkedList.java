@@ -24,6 +24,7 @@ import java.util.Comparator;
 // 21. detect the starting point of loop in singly linked list
 // 22. remove loop from singly linked list
 // 23. merge two sorted singly linked list
+// 24. add two singly linked list elements and return result in new ListNode
 public class singlyLinkedList {
     private ListNode head;
 
@@ -48,6 +49,14 @@ public class singlyLinkedList {
         }
         System.out.print("null\n");
         System.out.println("Length of LinkedListNodes is " + count);
+    }
+    public void display2(ListNode node) {
+        ListNode current = node;
+        while (current != null) {
+            System.out.print(current.data + " -> ");
+            current = current.next;
+        }
+        System.out.println("null");
     }
 
     // 3. find length of LinkedListNode
@@ -454,6 +463,28 @@ public class singlyLinkedList {
         return dummy.next;
     }
 
+
+    // 24. add two singly linked list elements and return result in new ListNode
+    private ListNode add(ListNode a, ListNode b){
+        ListNode dummy = new ListNode(0);
+        ListNode tail = dummy;
+        int carry = 0;
+        while(a != null || b != null){
+            int x = (a != null) ? a.data : 0;
+            int y = (b != null) ? b.data : 0;
+            int sum = carry + x + y;
+            carry = sum / 10;
+            tail.next = new ListNode(sum % 10);
+            tail = tail.next;
+            if(a != null) a = a.next;
+            if(b != null) b = b.next;
+        }
+        if(carry > 0){
+            tail.next = new ListNode(carry);
+        }
+        return dummy.next;
+    }
+
     public static void main(String[] args) {
         singlyLinkedList sll = new singlyLinkedList();
         sll.head = new ListNode(10);
@@ -614,5 +645,28 @@ public class singlyLinkedList {
         singlyLinkedList result = new singlyLinkedList();
         result.head = merge(sll2.head, sll3.head);
         result.display();
+
+
+        // 24. add two singly linked list elements and return result in new ListNode
+        singlyLinkedList sll4 = new singlyLinkedList();
+        singlyLinkedList sll5 = new singlyLinkedList();
+        // Adding elements to the first linked list
+        sll4.insertLast(7);
+        sll4.insertLast(4);
+        sll4.insertLast(9);
+        // Adding elements to the second linked list
+        sll5.insertLast(5);
+        sll5.insertLast(6);
+        // Display the original linked lists
+        System.out.println("First list:");
+        sll4.display2(sll4.head);
+        System.out.println("Second list:");
+        sll5.display2(sll5.head);
+        // Adding the two linked lists
+        ListNode result2 = sll4.add(sll4.head, sll5.head);
+        // Display the result
+        System.out.println("Result after adding:");
+        sll4.display2(result2);
+
     }
 }
