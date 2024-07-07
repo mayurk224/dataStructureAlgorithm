@@ -1,5 +1,8 @@
 // 1. how to insert node at the beginning of a doubly linked list
 // 2. how to insert nod at the end of a doubly linked list
+// 3. delete first node in doubly linked list
+
+import java.util.NoSuchElementException;
 
 public class DoublyLinkedList {
 
@@ -93,6 +96,24 @@ public class DoublyLinkedList {
         length++;
     }
 
+
+    // 3. delete first node in doubly linked list
+    public ListNode deleteFirst(){
+        if(isEmpty()){
+            throw new NoSuchElementException();
+        }
+        ListNode temp = head;
+        if(head == tail){
+            tail = null;
+        }else{
+            head.next.previous = null;
+        }
+        head = head.next;
+        temp.next = null;
+        length--;
+        return temp;
+    }
+
     public static void main(String[] args) {
         DoublyLinkedList dll = new DoublyLinkedList();
         dll.insertLast(1);
@@ -117,5 +138,11 @@ public class DoublyLinkedList {
         dll2.insertLast2(6);
         dll2.displayForward();
         dll2.displayBackward();
+
+        // 3. delete first node in doubly linked list
+        dll.displayForward();
+        dll.deleteFirst();
+        dll.deleteFirst();
+        dll.displayForward();
     }
 }
