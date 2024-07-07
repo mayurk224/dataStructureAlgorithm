@@ -1,6 +1,7 @@
 // 1. how to implement a circular singly linked list
 // 2. how to traverse and print a circular singly linked list
 // 3. how to insert node at the beginning of a circular singly linked list
+// 4. how to insert node at the end of a circular singly linked list
 
 public class CircularSinglyLinkedList {
 
@@ -70,6 +71,21 @@ public class CircularSinglyLinkedList {
         length++;
     }
 
+    // 4. how to insert node at the end of a circular singly linked list
+    public void insertLast(int data){
+        ListNode temp = new ListNode(data);
+        if(last == null){
+            last = temp;
+            last.next = last;
+        }
+        else{
+            temp.next = last.next;
+            last.next = temp;
+            last = temp;
+        }
+        length++;
+    }
+
     public static void main(String[] args) {
         CircularSinglyLinkedList csll = new CircularSinglyLinkedList();
 
@@ -81,6 +97,10 @@ public class CircularSinglyLinkedList {
 
         // 3. how to insert node at the beginning of a circular singly linked list
         csll.insertFirst(10);
+        csll.display();
+
+        // 4. how to insert node at the end of a circular singly linked list
+        csll.insertLast(20);
         csll.display();
     }
 }
