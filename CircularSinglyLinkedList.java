@@ -1,4 +1,5 @@
 // 1. how to implement a circular singly linked list
+// 2. how to traverse and print a circular singly linked list
 
 public class CircularSinglyLinkedList {
 
@@ -42,8 +43,27 @@ public class CircularSinglyLinkedList {
         last = fourth;
     }
 
+    // 2. how to traverse and print a circular singly linked list
+    public void display(){
+        if(last == null){
+            return;
+        }
+        ListNode first = last.next;
+        while(first != last){
+            System.out.print(first.data+" ");
+            first = first.next;
+        }
+        System.out.print(first.data);
+
+    }
+
     public static void main(String[] args) {
         CircularSinglyLinkedList csll = new CircularSinglyLinkedList();
+
+        // 1. how to implement a circular singly linked list
         csll.createCircularLinkedList();
+
+        // 2. how to traverse and print a circular singly linked list
+        csll.display();
     }
 }
