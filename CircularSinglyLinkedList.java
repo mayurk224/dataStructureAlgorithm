@@ -2,6 +2,9 @@
 // 2. how to traverse and print a circular singly linked list
 // 3. how to insert node at the beginning of a circular singly linked list
 // 4. how to insert node at the end of a circular singly linked list
+// 5. how to remove first node from a circular singly linked list
+
+import java.util.NoSuchElementException;
 
 public class CircularSinglyLinkedList {
 
@@ -86,6 +89,36 @@ public class CircularSinglyLinkedList {
         length++;
     }
 
+    // 5. how to remove first node from a circular singly linked list
+    public ListNode removeFirst(){
+        if(isEmpty()){
+            throw new NoSuchElementException();
+        }
+        ListNode temp = last.next;
+        if(last.next == last){
+            last = null;
+        }else{
+            last.next = temp.next;
+        }
+        temp.next = null;
+        length--;
+        return temp;
+    }
+    public int removeFirst1(){
+        if(isEmpty()){
+            throw new NoSuchElementException();
+        }
+        ListNode temp = last.next;
+        int result = temp.data;
+        if(last.next == last){
+            last = null;
+        }else{
+            last.next = temp.next;
+        }
+        length--;
+        return result;
+    }
+
     public static void main(String[] args) {
         CircularSinglyLinkedList csll = new CircularSinglyLinkedList();
 
@@ -101,6 +134,14 @@ public class CircularSinglyLinkedList {
 
         // 4. how to insert node at the end of a circular singly linked list
         csll.insertLast(20);
+        csll.display();
+
+        // 5. how to remove first node from a circular singly linked list
+        csll.display();
+        csll.removeFirst();
+        csll.display();
+        // printing which element is getting removed from list
+        System.out.println(csll.removeFirst1());;
         csll.display();
     }
 }
